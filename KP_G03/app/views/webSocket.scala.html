@@ -1,0 +1,28 @@
+@(url:String)
+
+<html>
+	<head>
+		<title>Repos</title>
+		<script id="helper" type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
+		<style>
+			.search-box{ width: 54%;margin: auto;border: 2px solid black;border-style: dashed; }
+			h3{text-align:center}
+			input{border: 2px dashed;width: 70%;margin-bottom: 19px;margin-left: 50px;height: 28px;}
+ 	    	button{border: 2px dashed;height: 28px;margin-left: 8px; cursor:pointer}
+    		.result-div{border: 2px dashed;width: 53%;margin: auto;margin-top: 30px;padding: 8px;}
+		</style>
+	</head>
+	<body>
+	 <div class= "search-box">
+		<div class = "title-div">
+			<h3> Welcome to Gitterific!</h3>
+		</div>
+	  	<input id="searchTerm" class="input-lg" type="text" placeholder="enter search term(s)" /> 
+		<button id="goButton" type="button" class="btn btn-info" onclick="search()">Go</button>
+	</div>
+		
+		<div id ="result_contents">
+		</div>
+	
+		</body>
+</html>

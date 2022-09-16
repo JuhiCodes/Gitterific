@@ -1,0 +1,37 @@
+@(repos : List[Repository])
+
+@main("Welcome to Gitterific") {
+
+<html>
+	<head>
+		<title>Repository Results</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+   </head>
+<body>	
+ 
+  <div class = "result-div">
+ 
+  @for(r<-repos){
+ 
+ 	<div class = "result-details">
+ 		<p> User: <a href="@routes.HomeController.userinfo(r.login)">@r.login</a> </p>
+        <p> Repository:	<a href="@routes.HomeController.repo(r.id)">@r.repoName</a> </p>
+  		<p> Topics: </p>	 	
+  		
+  		
+  		@if(r.topics.size() == 0){
+  		<p class ="empty-topic"> </p> 
+  		}
+  		
+ 		@for(t <- r.topics){
+   		<li><a href="@routes.HomeController.topicsearch(t)">@t</a></li>
+ 	}	
+  	</div>
+  }
+ 	
+ </div>
+ 
+ </body> 
+ </html>
+}

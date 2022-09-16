@@ -1,0 +1,21 @@
+@(issueList : List[Issues])
+<html>
+	<head>
+		<title>Repository Issues</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+   </head>
+	<body>
+	  <a href="@routes.HomeController.issueStats()"> Issue statistics </a>
+	<h1> Recent Issues of a Repository: </h1>
+ 	@for(i <- issueList){
+ 	 <div class = "result-div">
+ 		<p> Issue title : @i.title</p>
+ 		<p> Created Date : @i.created_at</p>
+ 		<p> Last Updated on: @i.updated_at</p>
+ 		<p> Issue Id : @i.id</p>
+ 		<p> Issue Status : @i.state</p>
+   	</div>
+  }
+	</body>
+ </html>

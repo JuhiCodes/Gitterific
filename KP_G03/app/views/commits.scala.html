@@ -1,0 +1,32 @@
+@(com : List[Commits])
+
+@main("Welcome to Gitterific") {
+
+<html>
+	<head>
+		<title>Commit Results</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+   </head>
+<body>	
+  <h1> Recent Commits</h1>
+  
+  <a href="@routes.HomeController.commitStats()"> Commit statistics </a>
+  <div class = "result-div">
+ 
+  @for(c<-com){
+ 
+ 	<div class = "result-details">
+ 		<p> Message : @c.commitName</p>
+ 		<p> Committer Name : @c.committerName </p>
+ 		<p> Committer ID : @c.committerId</p>
+ 	
+  	</div>
+  }
+ 
+ 
+ </div>
+ 
+ </body> 
+ </html>
+}

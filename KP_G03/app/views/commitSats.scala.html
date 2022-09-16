@@ -1,0 +1,49 @@
+@(comm : List[Committer], avgAdd : OptionalDouble, avgDel : OptionalDouble, maxAdd : Integer, maxDel : Integer, minAdd : Integer, minDel : Integer)
+
+
+@main("Welcome to Gitterific") {
+
+<html>
+	<head>
+		<title>Commit Results</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+   </head>
+<body>	
+  <h1> Top 10 Committers </h1>
+
+ 
+  <div class = "result-div">
+
+
+@for(c <- comm){
+    <p>Name : <a href="@routes.HomeController.userinfo(c.name)"> @c.name</a> , Commits : @c.commitNum</p>
+ }
+ 
+ </div>
+ 
+ <h1> Addition Deletion Statistics </h1>
+   <div class = "result-div">
+ 
+	<h2> Addition Statistics </h2>
+	<p> Average Addition : @avgAdd</p>
+	<p> Maximum Addition : @maxAdd</p>
+	<p> Minimum Addition : @minAdd</p> 
+ 
+ </div>
+ 
+  </div>
+ 
+   <div class = "result-div">
+ 
+	<h2> Deletion Statistics </h2>
+	<p> Average Deletion : @avgDel</p>
+	<p> Maximum Deletion : @maxDel</p>
+	<p> Minimum Deletion : @minDel</p> 
+ 
+ </div>
+ 
+ </body> 
+ </html>
+}
+

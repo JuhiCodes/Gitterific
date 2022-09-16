@@ -1,0 +1,164 @@
+@(r : Repository, top20issueList :List[Issues], RepoCollabs : List[String])
+
+@main("Welcome to Gitterific") {
+<style>
+.welcome-div{background-color: black;color: white;margin-top: -11px;margin-left: -10px;margin-right: -9px; text-align: center; }
+.welcome-div h1{font-size: 17px;padding: 3px;font-family: monospace;}
+.title-div{background: #f6f8fa;margin-top: -9px;color: #0969da;display: flex;font-style: oblique;}
+.title-div h1{font-size: 16px;font-weight: 500;padding-top: 13px;}  
+.title-div h3{font-size: 14px;font-weight: 700;}  
+.title-div p{font-family: arial; margin-left: 10px;border: 1px solid black;border-radius: 11px; height: 15px;margin-top: 23px; padding: 1px 4px; color: black; font-size: 13px;}
+table, th, td {border:1px solid black;}
+.tab{overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1;}
+.tab button {background-color: inherit;float: left;border: none;outline: none;cursor: pointer;padding: 14px 16px;transition: 0.3s;font-size: 17px;}
+.tab button:hover{background-color: #ddd;}
+.tab button.active { background-color: #ccc;}
+.tabcontent {display: none;padding: 6px 12px;border: 1px solid #ccc; border-top: none;}
+.detail-box { display: flex;  margin-right: 10px;}
+.detail-box h3{margin-top: 23px;font-size: 16px;}
+.body-div{display: flex;}
+.tab-section{display:block; width:85%;}
+.topic-box{width: 15%;}
+.tab-content{width: 85%;}
+.topic-title h1{ font-size: 19px;font-family: ui-sans-serif;background-color: #DDD;margin: 0;padding: 14px;}
+.language, .topics{margin-left:10px;}
+.language{display:flex;}
+.language h1, .topics h1{font-size: 19px}
+.language h2{font-size: 17px;font-family: monospace;padding-left: 11px;color: #0969da;}
+.topics li{font-size: 17px;font-family: monospace;padding-left: 11px;color: #0969da;}
+.tabcontent{min-height: 1000px;}
+.repo-details{display:flex; height: 25px;}
+.repo-details h1{font-size: 18px; padding-top: 6px;}
+.repo-details p, li{font-family: monospace;color: #0969da;font-weight: 700;font-size: 18px;padding-left: 11px;}
+.issue-div{border-bottom: dashed;}
+.issue-div .repo-details{height: 40px;}
+
+</style>
+
+<html>
+
+  <head>
+		<title>Repos</title>
+  </head>
+  <body>
+  <div class= "welcome-div">
+   <h1> Welcome to Gitterific!/ Repository Details </h1>
+  </div>
+  <div class="title-div">
+  <h1>Repository /</h1><h2>@r.repoName</h2> <p> @r.visibility </p> 
+  </div>
+
+
+  
+  <div class = "body-div">
+ 		<div class ="tab-section">
+  		<div class="tab">
+  			<button class="tablinks" onclick="openCity(event, 'details')">Repository Details</button>
+  			<button class="tablinks" onclick="openCity(event, 'issues')">Issues</button>
+  			<button class="tablinks" onclick="openCity(event, 'collaborators')">Collaborators</button>
+  		</div>
+  
+  		<div id="details" class="tabcontent" style="display:block;">
+  			<div class = "repo-deails-div">
+	 			 <div class= "repo-details">
+   					<h1> Repository Name: </h1> <p>@r.repoName</p>
+ 		 		</div> 
+ 				 <div class= "repo-details">
+  	 				<h1> Visibility: </h1> <p>@r.visibility</p>
+  				</div> 
+  				<div class= "repo-details">
+  	 				<h1> Watchers Count: </h1> <p>@r.watchers_count</p>
+  				</div> 
+  				<div class= "repo-details">
+  	 				<h1> Forks: </h1> <p>@r.forks</p>
+  				</div>
+  				<div class= "repo-details">
+  	 				<h1> Created on: </h1> <p>@r.createdAt</p>
+  				</div>
+  				<div class= "repo-details">
+  	 				<h1> Score: </h1> <p>@r.score</p>
+  				</div>
+  				<div class= "repo-details">
+  	 				<h1> Stars: </h1> <p>@r.stars</p>
+  				</div>	
+  				<div class= "repo-details" style="display:block;">
+  					<h1> Topics: </h1> 
+  						@for(t <- r.topics){
+   							<li>@t</li>
+  						}
+    			</div>
+  			</div>	
+  		</div>
+
+		<div id="issues" class="tabcontent">
+  			<h3>20 Latest Issues of the Repository:</h3>
+  			@for(i <- top20issueList){
+ 	 		<div class = "issue-div">
+ 	 			<div class= "repo-details">
+ 					<h1> Issue title :</h1> <p> @i.title </p>
+ 				</div>
+ 				<div class= "repo-details">
+ 					<h1> Created Date :</h1> <p> @i.created_at </p>
+ 				</div>
+ 				<div class= "repo-details">
+ 					<h1> Last Updated on: </h1> <p> @i.updated_at </9>
+ 				</div>
+ 				<div class= "repo-details">
+ 					<h1> Issue Id :</h1> <p> @i.id </p>
+ 				</div>
+ 				<div class= "repo-details">
+ 					<h1> Issue Status :</h1> <p> @i.state </p>
+ 				</div>
+ 				
+   			</div>
+  			}
+		</div>
+
+	   <div id="collaborators" class="tabcontent">
+  			<h3>Collaborators</h3>
+  			<div class= "repo-details" style= "display:block;">
+  			 @for(t <- RepoCollabs){
+  			<li>  <a href="@routes.HomeController.userinfo(t)"> @t </a> </li>
+  			 }
+  			</div> 
+		</div>
+</div>
+
+
+ 	<div class = "topic-box">
+		<div class ="topic-title">
+	 		<h1> Other Links: </h1>
+		</div>
+   	<div class="issue-link">
+ 		 <a href="@routes.HomeController.issueStats()">Issues-statistics</a> 
+   	</div>
+   	<div class="commit-link">
+ 		  <a href="@routes.HomeController.commits(r.id)">Commits</a>
+  </div>
+  </div>
+  
+   
+
+ 
+<script>
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>
+ 
+ </body>
+ </html>
+  
+}

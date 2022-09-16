@@ -1,0 +1,12 @@
+.result-div{
+width: 70%;
+margin:auto;
+border: 1 px solid back;
+border-style: dashed;
+padding: 20px;
+}
+
+
+.result-details{
+border-bottom: dashed;
+}

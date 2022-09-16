@@ -1,0 +1,38 @@
+@(u : User)
+
+
+<html>
+	<head>
+		<title>User Information</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+   </head>
+<body>	
+ 
+  <div class = "result-div">
+ 
+ 
+ 
+ 
+ 	<div class = "result-details">
+ 	    
+ 		<p> Name: @u.Name </p>
+ 		<p> Followers: @u.followers </p>
+ 		<p> Following: @u.following </p>
+ 		<p> Github URL: @u.htmlURL </p>
+ 		<p> Public Repositories: @u.publicRepos </p>
+ 		<p> Repositories: </p>	
+  		
+  		@for(t <- u.userReposlist){
+  		
+        <li><a href="@routes.HomeController.userrepos(t.getId)">@t.getRepoName</a></li>
+  									}
+  	</div>
+  
+ 
+</div>
+  
+</div>
+ 
+ </body> 
+ </html>

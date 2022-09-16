@@ -1,0 +1,43 @@
+
+@(repoForm : Form[RepoData])(implicit request: Http.Request, messages: play.i18n.Messages, repoDetails: List[Repository], url: String)
+@import helper._
+
+<html>
+	<head>
+		<title>Repos</title>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/resultsStyle.css")'>
+		<link rel="stylesheet" type="text/css" 
+                       href='@routes.Assets.versioned("stylesheets/formStyle.css")'>
+        <script id="helper" type='text/javascript' ws-url=@url src='@routes.Assets.versioned("javascripts/index.js")'></script>
+	</head>
+	<body>
+	
+	<div class = "title-div">
+	<h3> Welcome to Gitterific!</h3>
+	</div>
+		@helper.form(action= helper.CSRF(routes.HomeController.save())){
+			@helper.inputText(repoForm("keyword"))
+			<input type="submit" value="Go">
+		}
+		
+		@if(repoDetails != null){
+			<div class = "result-div">
+			@for(r<-repoDetails){
+				<div class = "result-details">
+					<p> User: <a href="@routes.HomeController.userinfo(r.login)">@r.login</a> </p>
+					<p> Repository:	<a href="@routes.HomeController.repo(r.id)">@r.repoName</a> </p>
+					<p> Topics: </p>	
+					
+					@if(r.topics.size() == 0){
+					<p class ="empty-topic"> - </p> 
+					}
+					
+			@for(t <- r.topics){
+			<li><a href="@routes.HomeController.topicsearch(t)">@t</a></li>
+			}
+				</div>
+			}
+		}
+	</body>
+</html>
